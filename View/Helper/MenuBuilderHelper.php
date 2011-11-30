@@ -56,6 +56,7 @@ class MenuBuilderHelper extends AppHelper {
 		'ulId' => null,
         'alias' => array(),
         'partialMatch' => false,
+		'neverActive' => false,
         'permissions' => array(),
         'id' => null,
         'class' => null,
@@ -219,7 +220,7 @@ class MenuBuilderHelper extends AppHelper {
             }
         }
 
-        $isActive = $nowIsActive || $check;
+        $isActive = ($nowIsActive || $check) && !$item['neverActive'];
 
         $arrClass = array();
 
