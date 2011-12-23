@@ -1,40 +1,38 @@
 # MenuBuilder Helper
 
-A dynamic menu building helper for CakePHP
+A dynamic menu plugin for CakePHP 2.0
 
 ## Background
 
-This is a menu building helper with lot of customization options. Check out the **Usage** section.
+This is a dynamic menu building Plugin with lot of customization options.
 
-Now it supports menus built with [ACL Menu Component](http://mark-story.com/posts/view/acl-menu-component) by [Mark Story](http://mark-story.com/)
+It includes a Helper based on [Menu Builder](https://github.com/torifat/cake-menu_builder),
+and an adapted version of [ACL Menu Component](https://github.com/markstory/cakephp_menu_component)
+
+For more info, check out the **Usage** section.
 
 ## Features
 
 * Generate menu based on current user type/group/permission/level (Can be used with Auth, Authsome, etc Components)
-* Provide various useful CSS class
+* Provide various useful CSS classes
 * Multi-level menu support
-* Supports [ACL Menu Component](http://mark-story.com/posts/view/acl-menu-component) by [Mark Story](http://mark-story.com/)
-* CakePHP Unit Test (100% Code coverage)
+* Ships with a functional version of [ACL Menu Component](https://github.com/markstory/cakephp_menu_component) by [Mark Story](http://mark-story.com/)
 
-## Requirements
-
-* Built for PHP 5.* I'm not interested about PHP 4 but you can modify it easily :)
-* CakePHP 1.3.*. Untested with the 1.2.x series, but should work fine
 
 ## Installation
 
 ### Manual
 
-* Download this: http://github.com/torifat/cake-menu_builder/zipball/master
+* Download this: [http://github.com/lourenzo/cake-menu/zipball/master](http://github.com/lourenzo/cake-menu/zipball/master)
 * Unzip that download.
-* Copy the resulting folder to `app/plugins`
-* Rename the folder you just copied to `menu_builder`
+* Copy the resulting folder to `app/Plugins`
+* Rename the folder you just copied to `Menu`
 
 ### GIT Submodule
 
 In your app directory type:
 
-    git submodule add git://github.com/torifat/cake-menu_builder.git plugins/menu_builder
+    git submodule add git://github.com/lourenzo/cake-menu.git Plugins/Menu
     git submodule init
     git submodule update
 
@@ -42,7 +40,7 @@ In your app directory type:
 
 In your plugin directory type
 
-    git clone git://github.com/torifat/cake-menu_builder.git menu_builder
+    git clone git://github.com/lourenzo/cake-menu.git Menu
 
 # Usage
 
@@ -51,7 +49,7 @@ To use this helper add the following to your AppController:
 
     <?php
     ...
-    var $helpers = array(..., 'MenuBuilder.MenuBuilder');
+    var $helpers = array(..., 'Menu.MenuBuilder');
     
     function beforeFilter() {
         ...
@@ -389,7 +387,9 @@ If you want to define some separator in your menu, below is a nice example of wh
 *Add More Test Cases*
 
 
-# License
+# Licensing
+
+## MenuBuilderHelper
 
 Copyright (c) 2011 M. M. Rifat-Un-Nabi
 
@@ -410,3 +410,16 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
+
+## ACL Menu Component
+
+Copyright 2008, Mark Story.
+
+Licensed under The [MIT License](http://www.opensource.org/licenses/mit-license.php)
+Redistributions of files must retain the above copyright notice.
+
+# Credits
+* [M. M. Rifat-Un-Nabi](http://vistaarc.com/)
+* [David Lancea](https://github.com/dlancea)
+* [Mark Story](http://mark-story.com/)
+* [Sam Sherlock](http://samsherlock.com)
