@@ -1,102 +1,102 @@
 <?php
 App::uses('Component', 'Controller');
 class MenuGathererComponent extends Component {
-	protected $_controller;
+  protected $_controller;
 
-	protected $_menu = array();
+  protected $_menu = array();
 
-	/**
-	 * Constructor
-	 *
-	 * @param ComponentCollection $collection A ComponentCollection this component can use to lazy load its components
-	 * @param array $settings Array of configuration settings.
-	 */
-	public function __construct(ComponentCollection $collection, $settings = array()) {
-		$this->_controller = $collection->getController();
+  /**
+   * Constructor
+   *
+   * @param ComponentCollection $collection A ComponentCollection this component can use to lazy load its components
+   * @param array $settings Array of configuration settings.
+   */
+  public function __construct(ComponentCollection$collection, $settings = array()) {
+    $this->_controller = $collection->getController();
 
 
 
-		parent::__construct($collection, $settings);
-	}
+    parent::__construct($collection, $settings);
+  }
 
-	/**
-	 * Initialize component
-	 *
-	 * @param Controller $controller Instantiating controller
-	 * @return void
-	 */
-	public function initialize(Controller $controller) {
+  /**
+   * Initialize component
+   *
+   * @param Controller $controller Instantiating controller
+   *
+   * @return void
+   */
+  public function initialize(Controller$controller) {}
 
-	}
+  public function controllerMenu($menu, $controller = NULL, $actions = array(), $index = NULL) {
+    if (is_null($controller)) {
+      foreach (App::objects('Controller') as $controller) {
+        $this->controllerMenu($controller);
 
-	public function controllerMenu($menu, $controller = null, $actions = array(), $index = null) {
-		if (is_null($controller)) {
-			foreach (App::objects('Controller') as $controller) {
-				$this->controllerMenu($controller);
+        return;
+      }
+    }
 
-				return;
-			}
-		}
+    if (is_null($actions)) {
+      // List all public actions
+    }
 
-		if (is_null($actions)) {
-			// List all public actions
-		}
+    $item = array();
 
-		$item = array();
+    $this->item($menu, $item, $index);
+  }
 
-		$this->item($menu, $item, $index);
-	}
+  public function get($menu = NULL) {
+    if (is_null($menu)) {
+      return $this->_menu;
+    }
 
-	public function get($menu = null) {
-		if (is_null($menu)) {
-			return $this->_menu;
-		}
+    return $this->_menu[$menu];
+  }
 
-		return $this->_menu[$menu];
-	}
+  /**
+   * Add an item to a menu at the specified position
+   */
+  public function item($menu, $item = array(), $index = NULL) {
+    $this->_checkMenu($menu);
 
-	/**
-	 * Add an item to a menu at the specified position
-	 */
-	public function item($menu, $item = array(), $index = null) {
-		$this->_checkMenu($menu);
+    if (is_null($index)) {
+      $this->_menu[$menu][] = $item;
 
-		if (is_null($index)) {
-			$this->_menu[$menu][] = $item;
+      return;
+    }
 
-			return;
-		}
+    $this->_menu = array_splice($this->_menu, $index, 0, $item);
+  }
 
-		$this->_menu = array_splice($this->_menu, $index, 0, $item);
-	}
+  public function menu($name, $menu = array()) {
+    if (is_array($name)) {
+      foreach ($name as $key => $val) {
+        $this->setMenu($key, $val);
+      }
+      return;
+    }
 
-	public function menu($name, $menu = array()) {
-		if (is_array($name)) {
-			foreach ($name as $key => $val) {
-				$this->setMenu($key, $val);
-			}
-			return;
-		}
+    $this->_menu[$name] = $menu;
+  }
 
-		$this->_menu[$name] = $menu;
-	}
+  public function set($menu = array()) {
+    $this->_menu = (array) $menu;
+  }
 
-	public function set($menu = array()) {
-		$this->_menu = (array) $menu;
-	}
+  protected function _checkMenu($name) {
+    if (is_array($name)) {
+      foreach ($name as $val) {
+        $this->_checkMenu($val);
+      }
 
-	protected function _checkMenu($name) {
-		if (is_array($name)) {
-			foreach ($name as $val) {
-				$this->_checkMenu($val);
-			}
+      return;
+    }
 
-			return;
-		}
-
-		if (!isset($this->_menu[$name])) {
-			$this->set($name);
-		}
-	}
+    if (!isset($this->_menu[$name])) {
+      $this->set($name);
+    }
+  }
 }
-?>
+
+
